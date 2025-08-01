@@ -1,8 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Logo Welcome Section -->
+<div class="container-fluid px-0 my-5">
+    <div class="row g-0 align-items-center">
+        <!-- Left Side - Logo -->
+        <div class="col-md-6 text-center" style="background-color: #fff0f6;">
+            <img src="~/images/Edero.png" alt="Royuié Logo" class="img-fluid p-4" style="max-width: 400px; width: 80%; border-radius: 50%;">
+        </div>
+
+        <!-- Right Side - Welcome Text -->
+        <div class="col-md-6" style="background-color: #ffe4f2; padding: 40px;">
+            <h2 style="color: #c2185b; font-weight: bold;">Welcome to Royuié!</h2>
+            <p style="font-size: 1.1rem; color: #6a1b9a; margin-top: 15px;">
+                Elevate your everyday look with fashion that speaks your language.
+                Royuié celebrates bold, feminine style with a touch of elegance and flair.
+            </p>
+            <p style="font-size: 1rem; color: #6a1b9a;">
+                Join us today and unlock your exclusive <strong>20% welcome discount</strong>! 💖
+            </p>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-dark mt-3">
+                <i class="fas fa-user-plus"></i> Sign Up Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Icon Section -->
+<div class="container icon-section text-center mb-5">
+    <div class="row">
+        <div class="col-md-3">
+            <i class="fas fa-lock"></i>
+            <p>Secure Payment</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fas fa-shipping-fast"></i>
+            <p>Fast Delivery</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fas fa-box-open"></i>
+            <p>Free Shipping for your first order</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fas fa-face-smile"></i>
+            <p>Enjoy Shopping with Us!</p>
+        </div>
+    </div>
 </div>

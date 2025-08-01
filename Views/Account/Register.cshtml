@@ -1,0 +1,149 @@
+﻿@model royuie.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Create Account</h2>
+
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control" id="usernameInput" />
+                    <span id="username-status"></span>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AddressLine1" class="form-label"></label>
+                    <input asp-for="AddressLine1" class="form-control" />
+                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AddressLine2" class="form-label"></label>
+                    <input asp-for="AddressLine2" class="form-control" />
+                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PostCode" class="form-label"></label>
+                    <input asp-for="PostCode" class="form-control" />
+                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="State" class="form-label"></label>
+                    <select asp-for="State" class="form-select">
+                        <option value="">-- Select State --</option>
+                        <option value="NSW">New South Wales (NSW)</option>
+                        <option value="VIC">Victoria (VIC)</option>
+                        <option value="QLD">Queensland (QLD)</option>
+                        <option value="SA">South Australia (SA)</option>
+                        <option value="WA">Western Australia (WA)</option>
+                    </select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label asp-for="Password" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span class="input-group-text password-toggle" style="cursor:pointer;">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        <span class="input-group-text password-toggle" style="cursor:pointer;">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" mb-5>Create Account</button>
+            </form>
+
+            @section Scripts {
+                <partial name="_ValidationScriptsPartial" />
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+                <script>
+                    // Password visibility toggle for all eye icons
+                    document.querySelectorAll('.password-toggle').forEach(function(toggle) {
+                        toggle.addEventListener('click', function () {
+                            const input = this.previousElementSibling; // Get the input field
+                            const icon = this.querySelector('i');
+
+                    if (input.getAttribute('type') === 'password') {
+                        input.setAttribute('type', 'text');
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    } else {
+                        input.setAttribute('type', 'password');
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    }
+                        });
+                    });
+                </script>
+
+                <script>
+                    // Debounced username availability check
+                    let debounceTimer;
+
+                    $('#usernameInput').on('input', function () {
+                        clearTimeout(debounceTimer);
+                        const username = $(this).val();
+
+                        if (username.length < 3) {
+                            $('#username-status').text('');
+                            return;
+                        }
+
+                        debounceTimer = setTimeout(function () {
+                            $.get('/Account/IsUsernameAvailable', { username: username })
+                                .done(function (isAvailable) {
+                                    if (isAvailable) {
+                                        $('#username-status').text('✔ Username is available').css('color', 'green');
+                                    } else {
+                                        $('#username-status').text('✖ Username is already taken').css('color', 'red');
+                                    }
+                                });
+                        }, 500);
+                    });
+                </script>
+            }
+        </div>
+    </div>
+</div>

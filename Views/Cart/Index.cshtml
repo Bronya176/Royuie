@@ -1,0 +1,67 @@
+﻿@model List<RoyuieStore1.Models.CartItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h2 class="mb-4"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+
+@if (Model.Count == 0)
+{
+    <p><i class="fas fa-box-open text-muted"></i> Your cart is empty</p>
+}
+else
+{
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price (SGD)</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.ImagePath" alt="@item.ProductName" width="60" class="rounded" /></td>
+                    <td>@item.ProductName</td>
+                    <td><i class="fas fa-dollar-sign"></i>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td><i class="fas fa-dollar-sign"></i>@(item.Price* item.Quantity)</td>
+                    <td>
+                        <a asp-action="Remove" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-end">
+        <h4>Total: <i class="fas fa-dollar-sign"></i>@Model.Sum(i => i.Price * i.Quantity)</h4>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+            <i class="fas fa-credit-card"></i> Checkout
+        </button>
+
+        <!-- Checkout Modal -->
+        <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-4 text-center">
+                    <div class="modal-body">
+                        <div class="fs-1 text-success">
+                            <i class="fas fa-smile-beam"></i> <!-- FontAwesome emoji -->
+                        </div>
+                        <h5 class="modal-title mt-3" id="checkoutModalLabel">Successful Payment</h5>
+                        <p class="text-muted">Thanks for shopping with us.</p>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

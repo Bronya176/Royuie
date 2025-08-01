@@ -1,0 +1,27 @@
+﻿@model IEnumerable<royuie.Models.Product>
+@inject royuie.Data.ApplicationDbContext _context
+
+@{
+    var subCategoryId = ViewBag.SubCategoryId as int?;
+    var subCategory = _context.SubCategories.FirstOrDefault(s => s.Id == subCategoryId);
+    string subCategoryName = subCategory?.Name ?? "Products";
+    ViewData["Title"] = subCategoryName;
+}
+
+<h2 class="mb-4">@subCategoryName</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/images/@item.ImagePath" class="card-img-top" style="height: 300px; object-fit: cover;" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">$@item.Price</p>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
