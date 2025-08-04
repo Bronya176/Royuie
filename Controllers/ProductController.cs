@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RoyuieStore1.Data;
-using RoyuieStore1.Models;
+using royuie.Data;
+using royuie.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RoyuieStore1.Controllers
+namespace royuie.Controllers
 {
     public class ProductController : Controller
     {
