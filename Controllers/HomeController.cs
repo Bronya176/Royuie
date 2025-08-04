@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using royuie.Models;
 using royuie.Data;
 
-namespace RoyuieStore1.Controllers
+namespace royuie.Controllers
 {
     public class HomeController : Controller
     {
