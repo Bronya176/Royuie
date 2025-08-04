@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RoyuieStore1.Data;
-using RoyuieStore1.Helpers; //Required to use SetObjectAsJson and GetObjectFromJson//
-using RoyuieStore1.Models;
+using royuie.Data;
+using royuie.Helpers; //Required to use SetObjectAsJson and GetObjectFromJson//
+using royuie.Models;
 
 
-namespace RoyuieStore1.Controllers
+namespace royuie.Controllers
 {
     public class CartController : Controller
     {
